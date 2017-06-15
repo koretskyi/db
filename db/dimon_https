@@ -1,0 +1,22 @@
+error_message = '"http" without "s" were found! New file with correct urls was created. Added "ua" to urls.'
+success_message = 'There is no wrong urls. Added "ua" to urls. New file with updated urls was created.'
+error_list = []
+success_list = []
+
+with open('C:/temp/url_file.txt', 'r') as list_of_urls, open('C:/temp/url_file_new.txt', 'w') as out_list_of_urls:
+    for line in list_of_urls:
+        if not line.strip():
+            continue
+        line_check_http = line[:5]
+        if 's' not in line_check_http:
+            line = line[:4] + 's' + line[4:]
+            error_list.append(error_message)
+        else:
+            success_list.append(success_message)
+        line = line[:30] + '/ua' + line[30:]
+        out_list_of_urls.writelines(line)
+
+if error_list:
+    print(error_list[0])
+else:
+    print(success_list[0])
